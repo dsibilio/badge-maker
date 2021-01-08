@@ -33,6 +33,7 @@ class BadgeRenderer {
         + "        <rect width=\"${width}\" height=\"${height}\" fill=\"url(#s)\"/>\r\n"
         + "    </g>\r\n"
         + "    <g fill=\"#fff\" text-anchor=\"middle\" font-family=\"Verdana,Geneva,DejaVu Sans,sans-serif\" text-rendering=\"geometricPrecision\" font-size=\"110\">\r\n"
+        + "        <image xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" visibility=\"${hasLogo}\" x=\"5\" y=\"3\" width=\"14\" height=\"14\" xlink:href=\"${logo}\"/>"
         + "        <text x=\"${leftX}\" y=\"${shadowMargin}\" fill=\"#010101\" fill-opacity=\".3\" transform=\"scale(.1)\" textLength=\"${leftLength}\">${leftText}</text>\r\n"
         + "        <text x=\"${leftX}\" y=\"${textMargin}\" transform=\"scale(.1)\" textLength=\"${leftLength}\">${leftText}</text>\r\n"
         + "        <text x=\"${rightX}\" y=\"${shadowMargin}\" fill=\"#010101\" fill-opacity=\".3\" transform=\"scale(.1)\" textLength=\"${rightLength}\">${rightText}</text>\r\n"
@@ -56,25 +57,31 @@ class BadgeRenderer {
     private final String rightText;
     private final String labelColor;
     private final String messageColor;
+    private final String logo;
+    private final boolean hasLogo;
     private int leftLength;
     private int rightLength;
 
     public Template(BadgeFormat badgeFormat) {
+      logo = escapeXml(badgeFormat.getLogo());
+      hasLogo = logo != null && !logo.isEmpty();
+      int logoOffset = hasLogo ? 15 : 0;
+
       leftText = escapeXml(badgeFormat.getLabel());
       leftLength = getTextLength(leftText);
-      leftX = (int) (10 * (LEFT_MARGIN + 0.5f * leftLength + HORIZONTAL_PADDING));
-      leftWidth = leftLength + 2 * HORIZONTAL_PADDING;
-      
+      leftX = (int) (10 * (LEFT_MARGIN + 0.5f * leftLength + HORIZONTAL_PADDING + logoOffset));
+      leftWidth = leftLength + 2 * HORIZONTAL_PADDING + logoOffset;
+
       rightMargin = leftWidth - 1;
       rightText = escapeXml(badgeFormat.getMessage());
       rightLength = getTextLength(rightText);
       rightX = (int) (10 * (rightMargin + 0.5f * rightLength + HORIZONTAL_PADDING));
       rightWidth = rightLength + 2 * HORIZONTAL_PADDING;
-      
+
       width = leftWidth + rightWidth;
       leftLength *= 10;
       rightLength *= 10;
-      
+
       labelColor = badgeFormat.getLabelColor().getHexColor();
       messageColor = badgeFormat.getMessageColor().getHexColor();
     }
@@ -94,7 +101,9 @@ class BadgeRenderer {
           .replace(toPlaceholder("leftLength"), str(leftLength))
           .replace(toPlaceholder("rightLength"), str(rightLength))
           .replace(toPlaceholder("labelColor"), labelColor)
-          .replace(toPlaceholder("messageColor"), messageColor);
+          .replace(toPlaceholder("messageColor"), messageColor)
+          .replace(toPlaceholder("hasLogo"), hasLogo ? "visible" : "hidden")
+          .replace(toPlaceholder("logo"), logo);
     }
 
     private static String toPlaceholder(String var) {

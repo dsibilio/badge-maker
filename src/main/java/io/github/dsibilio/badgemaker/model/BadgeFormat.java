@@ -15,12 +15,14 @@ public class BadgeFormat {
   private String message;
   private NamedColor labelColor = NamedColor.GREY;
   private NamedColor messageColor = NamedColor.BRIGHTGREEN;
+  private String logo;
 
-  public BadgeFormat(String label, String message, NamedColor labelColor, NamedColor messageColor) {
+  public BadgeFormat(String label, String message, NamedColor labelColor, NamedColor messageColor, String logo) {
     this.label = label;
     this.message = message;
     this.labelColor = labelColor;
     this.messageColor = messageColor;
+    this.logo = logo;
   }
 
   public String getLabel() {
@@ -46,6 +48,12 @@ public class BadgeFormat {
   }
   public void setMessageColor(NamedColor messageColor) {
     this.messageColor = messageColor;
+  }
+  public String getLogo() {
+    return logo;
+  }
+  public void setLogo(String logo) {
+    this.logo = logo;
   }
 
   @Override

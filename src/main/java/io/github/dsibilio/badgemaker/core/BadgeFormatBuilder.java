@@ -13,6 +13,7 @@ public class BadgeFormatBuilder {
   private String label;
   private NamedColor labelColor;
   private NamedColor messageColor;
+  private String logo;
 
   /**
    * It is recommended to use this builder to
@@ -51,11 +52,22 @@ public class BadgeFormatBuilder {
   }
 
   /**
+   * The logo, must be SVG converted with Base64 encoding.<br>
+   * E.g.: data:image/svg+xml;base64,PHN2b...
+   * @param logo the badge logo
+   * @return the builder
+   */
+  public BadgeFormatBuilder withLogo(String logo) {
+    this.logo = logo.trim();
+    return this;
+  }
+
+  /**
    * 
    * @return the build {@link BadgeFormat}
    */
   public BadgeFormat build() {
-    return new BadgeFormat(label, message, labelColor, messageColor);
+    return new BadgeFormat(label, message, labelColor, messageColor, logo);
   }
 
 }
