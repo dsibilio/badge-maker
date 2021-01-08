@@ -16,6 +16,10 @@ import jakarta.validation.Validator;
 public class BadgeMaker {
 
   private static Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
+  
+  private BadgeMaker() {
+    throw new IllegalStateException("Do not instantiate this class");
+  }
 
   /**
    * Given a badge format, generate an SVG badge

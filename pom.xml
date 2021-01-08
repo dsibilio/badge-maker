@@ -14,15 +14,30 @@
 	</properties>
 
 	<dependencies>
+		<!-- Validation -->
 		<dependency>
 			<groupId>org.hibernate.validator</groupId>
 			<artifactId>hibernate-validator</artifactId>
 			<version>7.0.0.Final</version>
 		</dependency>
 		<dependency>
+			<groupId>org.glassfish</groupId>
+			<artifactId>jakarta.el</artifactId>
+			<version>4.0.1</version>
+			<scope>test</scope>
+		</dependency>
+		<!-- Badge-Related -->
+		<dependency>
 			<groupId>org.javastack</groupId>
 			<artifactId>fontmetrics</artifactId>
 			<version>1.0.0</version>
+		</dependency>
+		<!-- Test -->
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter</artifactId>
+			<version>5.7.0</version>
+			<scope>test</scope>
 		</dependency>
 	</dependencies>
 
