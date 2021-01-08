@@ -2,6 +2,8 @@
 
 A lightweight Java SVG badge/shield generation library.
 
+![Badges Example](./examples/badges.png)
+
 # Usage
 
 ```java
