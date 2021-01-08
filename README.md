@@ -31,13 +31,13 @@ String badge = BadgeMaker.makeBadge(badgeFormat);
 <dependency>
   <groupId>io.github.dsibilio</groupId>
   <artifactId>badge-maker</artifactId>
-  <version>0.0.1</version>
+  <version>1.0.0</version>
 </dependency>
 ```
 
 ## Gradle
 ```groovy
-compile group: 'io.github.dsibilio', name: 'badge-maker', version: '0.0.1'
+compile group: 'io.github.dsibilio', name: 'badge-maker', version: '1.0.0'
 ```
 
 # References
