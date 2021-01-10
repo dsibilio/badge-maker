@@ -1,7 +1,6 @@
 package io.github.dsibilio.badgemaker.model;
 
 import io.github.dsibilio.badgemaker.core.BadgeFormatBuilder;
-import jakarta.validation.constraints.NotBlank;
 
 /**
  * It is recommended to use the {@link BadgeFormatBuilder}
@@ -11,7 +10,6 @@ import jakarta.validation.constraints.NotBlank;
 public class BadgeFormat {
 
   private String label;
-  @NotBlank
   private String message;
   private NamedColor labelColor = NamedColor.GREY;
   private NamedColor messageColor = NamedColor.BRIGHTGREEN;

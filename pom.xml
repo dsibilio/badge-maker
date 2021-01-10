@@ -48,11 +48,6 @@
 
 	<dependencies>
 		<dependency>
-			<groupId>org.hibernate.validator</groupId>
-			<artifactId>hibernate-validator</artifactId>
-			<version>7.0.0.Final</version>
-		</dependency>
-		<dependency>
 			<groupId>org.javastack</groupId>
 			<artifactId>fontmetrics</artifactId>
 			<version>1.0.0</version>
@@ -62,12 +57,6 @@
 			<groupId>org.junit.jupiter</groupId>
 			<artifactId>junit-jupiter-engine</artifactId>
 			<version>5.7.0</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.glassfish</groupId>
-			<artifactId>jakarta.el</artifactId>
-			<version>4.0.1</version>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
