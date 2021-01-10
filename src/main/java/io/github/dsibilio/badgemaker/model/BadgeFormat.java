@@ -11,8 +11,8 @@ public class BadgeFormat {
 
   private String label;
   private String message;
-  private NamedColor labelColor = NamedColor.GREY;
-  private NamedColor messageColor = NamedColor.BRIGHTGREEN;
+  private NamedColor labelColor;
+  private NamedColor messageColor;
   private String logo;
 
   public BadgeFormat(String label, String message, NamedColor labelColor, NamedColor messageColor, String logo) {

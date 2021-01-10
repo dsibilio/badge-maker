@@ -115,7 +115,7 @@ class BadgeRenderer {
     }
 
     private static String escapeXml(String xml) {
-      if(xml == null || xml.isEmpty())
+      if(xml == null || xml.trim().isEmpty())
         return "";
 
       return xml
@@ -123,7 +123,8 @@ class BadgeRenderer {
           .replace("<", "&lt;")
           .replace(">", "&gt;")
           .replace("\"", "&quot;")
-          .replace("'", "&apos;");
+          .replace("'", "&apos;")
+          .trim();
     }
 
     private static int getTextLength(String text) {

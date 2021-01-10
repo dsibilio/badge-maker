@@ -37,6 +37,14 @@ class BadgeMakerTest {
   }
 
   @Test
+  void makeBadgeWithJustMessageShouldWork() {
+    BadgeFormat badgeFormat = new BadgeFormatBuilder("message").build();
+
+    String badge = BadgeMaker.makeBadge(badgeFormat);
+    assertFalse(badge.contains("$"), "The template should be fully parsed");
+  }
+
+  @Test
   void makeBadgeShouldThrowWithInvalidBadgeFormat() {
     BadgeFormat badgeFormat = new BadgeFormat(null, null, null, null, null);
     badgeFormat.setLabel("label");
