@@ -51,17 +51,17 @@ class BadgeMakerTest {
     BadgeFormat badgeFormat = new BadgeFormatBuilder("message").build();
 
     String badge = BadgeMaker.makeBadge(badgeFormat);
-    assertSame(occurrencesOfSubstring("transform=\"scale(1)\"", badge), 2, "The svg elements should be regular sized");
+    assertSame(2, occurrencesOfSubstring("transform=\"scale(1)\"", badge), "The svg elements should be regular sized");
   }
 
   @Test
   void makeBadgeWithCustomScaleMultiplierShouldBeUpscaled() {
     BadgeFormat badgeFormat = new BadgeFormatBuilder("message")
-        .withScaleMultiplier(3)
+        .withScaleMultiplier(10000)
         .build();
 
     String badge = BadgeMaker.makeBadge(badgeFormat);
-    assertSame(occurrencesOfSubstring("transform=\"scale(3)\"", badge), 2, "The svg elements should be upscaled");
+    assertSame(2, occurrencesOfSubstring("transform=\"scale(10000)\"", badge), "The svg elements should be upscaled");
   }
 
   @Test

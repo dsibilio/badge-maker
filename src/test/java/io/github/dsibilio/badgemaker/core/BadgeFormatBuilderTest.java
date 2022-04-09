@@ -43,6 +43,7 @@ class BadgeFormatBuilderTest {
     BadgeFormatBuilder builder = new BadgeFormatBuilder("message");
     assertThrows(IllegalArgumentException.class, () -> builder.withScaleMultiplier(0));
     assertThrows(IllegalArgumentException.class, () -> builder.withScaleMultiplier(-1));
+    assertThrows(IllegalArgumentException.class, () -> builder.withScaleMultiplier(10001));
   }
 
 }
