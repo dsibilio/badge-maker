@@ -16,7 +16,7 @@ BadgeFormat badgeFormat = new BadgeFormatBuilder("coverage 98.7%") // right-side
     .withLabelColor(NamedColor.GREY) // left-side background color (default: GREY)
     .withMessageColor(NamedColor.BRIGHTGREEN) // right-side background color (default: BRIGHTGREEN)
     .withLogo(logo) // logos can be embedded as base64 encoded SVGs (optional)
-    .withScaleMultiplier(2) // the scale factor of the rendered badge (default: 1)
+    .withScaleMultiplier(2) // the scale factor of the rendered badge (default: 1, min: 1, max: 10000)
     .build();
 
 // obtain the badge as image/svg+xml string representation
