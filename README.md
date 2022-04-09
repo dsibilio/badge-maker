@@ -16,6 +16,7 @@ BadgeFormat badgeFormat = new BadgeFormatBuilder("coverage 98.7%") // right-side
     .withLabelColor(NamedColor.GREY) // left-side background color (default: GREY)
     .withMessageColor(NamedColor.BRIGHTGREEN) // right-side background color (default: BRIGHTGREEN)
     .withLogo(logo) // logos can be embedded as base64 encoded SVGs (optional)
+    .withScaleMultiplier(2) // the scale factor of the rendered badge (default: 1)
     .build();
 
 // obtain the badge as image/svg+xml string representation
@@ -31,13 +32,13 @@ String badge = BadgeMaker.makeBadge(badgeFormat);
 <dependency>
   <groupId>io.github.dsibilio</groupId>
   <artifactId>badge-maker</artifactId>
-  <version>1.0.2</version>
+  <version>1.0.3</version>
 </dependency>
 ```
 
 ## Gradle
 ```groovy
-compile group: 'io.github.dsibilio', name: 'badge-maker', version: '1.0.2'
+compile group: 'io.github.dsibilio', name: 'badge-maker', version: '1.0.3'
 ```
 
 # References

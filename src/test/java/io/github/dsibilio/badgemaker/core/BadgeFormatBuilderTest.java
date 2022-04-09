@@ -38,4 +38,11 @@ class BadgeFormatBuilderTest {
     assertThrows(NullPointerException.class, () -> builder.withMessageColor(null));
   }
 
+  @Test
+  void buildShouldNotBeAllowedWithInvalidScaleMultiplier() {
+    BadgeFormatBuilder builder = new BadgeFormatBuilder("message");
+    assertThrows(IllegalArgumentException.class, () -> builder.withScaleMultiplier(0));
+    assertThrows(IllegalArgumentException.class, () -> builder.withScaleMultiplier(-1));
+  }
+
 }

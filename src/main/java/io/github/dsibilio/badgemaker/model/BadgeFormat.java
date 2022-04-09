@@ -14,13 +14,15 @@ public class BadgeFormat {
   private NamedColor labelColor;
   private NamedColor messageColor;
   private String logo;
+  private int scaleMultiplier;
 
-  public BadgeFormat(String label, String message, NamedColor labelColor, NamedColor messageColor, String logo) {
+  public BadgeFormat(String label, String message, NamedColor labelColor, NamedColor messageColor, String logo, int scaleMultiplier) {
     this.label = label;
     this.message = message;
     this.labelColor = labelColor;
     this.messageColor = messageColor;
     this.logo = logo;
+    this.setScaleMultiplier(scaleMultiplier);
   }
 
   public String getLabel() {
@@ -53,11 +55,17 @@ public class BadgeFormat {
   public void setLogo(String logo) {
     this.logo = logo;
   }
+  public int getScaleMultiplier() {
+    return scaleMultiplier;
+  }
+  public void setScaleMultiplier(int scaleMultiplier) {
+    this.scaleMultiplier = scaleMultiplier > 0 ? scaleMultiplier : 1;
+  }
 
   @Override
   public String toString() {
-    return "BadgeFormat [label=" + label + ", message=" + message + ", labelColor=" + labelColor + ", messageColor="
-        + messageColor + "]";
+    return "BadgeFormat [label=" + label + ", labelColor=" + labelColor + ", logo=" + logo + ", message=" + message
+        + ", messageColor=" + messageColor + ", scaleMultiplier=" + scaleMultiplier + "]";
   }
 
 }

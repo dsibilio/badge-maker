@@ -16,6 +16,7 @@ public class BadgeFormatBuilder {
   private NamedColor labelColor = NamedColor.GREY;
   private NamedColor messageColor = NamedColor.BRIGHTGREEN;
   private String logo;
+  private int scaleMultiplier;
 
   /**
    * It is recommended to use this builder to
@@ -68,11 +69,24 @@ public class BadgeFormatBuilder {
   }
 
   /**
+   * @param scaleMultiplier the scale multiplier to be applied to the badge, eg. 2 = 2x the original size
+   * @return the builder
+   */
+  public BadgeFormatBuilder withScaleMultiplier(int scaleMultiplier) {
+    if (scaleMultiplier < 1) {
+      throw new IllegalArgumentException("'scaleMultiplier' must be greater than 0");
+    }
+
+    this.scaleMultiplier = scaleMultiplier;
+    return this;
+  }
+
+  /**
    * 
    * @return the build {@link BadgeFormat}
    */
   public BadgeFormat build() {
-    return new BadgeFormat(label, message, labelColor, messageColor, logo);
+    return new BadgeFormat(label, message, labelColor, messageColor, logo, scaleMultiplier);
   }
 
 }
