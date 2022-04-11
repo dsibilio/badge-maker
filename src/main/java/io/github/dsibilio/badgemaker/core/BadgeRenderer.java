@@ -19,7 +19,7 @@ class BadgeRenderer {
 
   static class Template {
 
-    private static final String FORMAT = "<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" width=\"${width}\" height=\"${height}\">\r\n"
+    private static final String FORMAT = "<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" width=\"${svgWidth}\" height=\"${svgHeight}\">\r\n"
         + "    <linearGradient id=\"s\" x2=\"0\" y2=\"100%\">\r\n"
         + "        <stop offset=\"0\" stop-color=\"#bbb\" stop-opacity=\".1\"/>\r\n"
         + "        <stop offset=\"1\" stop-opacity=\".1\"/>\r\n"
@@ -27,12 +27,12 @@ class BadgeRenderer {
         + "    <clipPath id=\"r\">\r\n"
         + "        <rect width=\"${width}\" height=\"${height}\" rx=\"3\" fill=\"#fff\"/>\r\n"
         + "    </clipPath>\r\n"
-        + "    <g clip-path=\"url(#r)\">\r\n"
+        + "    <g clip-path=\"url(#r)\" transform=\"scale(${scaleMultiplier})\">\r\n"
         + "        <rect width=\"${leftWidth}\" height=\"${height}\" fill=\"${labelColor}\"/>\r\n"
         + "        <rect x=\"${leftWidth}\" width=\"${rightWidth}\" height=\"${height}\" fill=\"${messageColor}\"/>\r\n"
         + "        <rect width=\"${width}\" height=\"${height}\" fill=\"url(#s)\"/>\r\n"
         + "    </g>\r\n"
-        + "    <g fill=\"#fff\" text-anchor=\"middle\" font-family=\"Verdana,Geneva,DejaVu Sans,sans-serif\" text-rendering=\"geometricPrecision\" font-size=\"110\">\r\n"
+        + "    <g fill=\"#fff\" text-anchor=\"middle\" font-family=\"Verdana,Geneva,DejaVu Sans,sans-serif\" text-rendering=\"geometricPrecision\" font-size=\"110\" transform=\"scale(${scaleMultiplier})\">\r\n"
         + "        <image xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" visibility=\"${hasLogo}\" x=\"5\" y=\"3\" width=\"14\" height=\"14\" xlink:href=\"${logo}\"/>"
         + "        <text x=\"${leftX}\" y=\"${shadowMargin}\" fill=\"#010101\" fill-opacity=\".3\" transform=\"scale(.1)\" textLength=\"${leftLength}\">${leftText}</text>\r\n"
         + "        <text x=\"${leftX}\" y=\"${textMargin}\" transform=\"scale(.1)\" textLength=\"${leftLength}\">${leftText}</text>\r\n"
@@ -52,6 +52,8 @@ class BadgeRenderer {
     private final int rightMargin;
     private final int rightX;
     private final int rightWidth;
+    private final int svgWidth;
+    private final int svgHeight;
     private final int width;
     private final String leftText;
     private final String rightText;
@@ -59,10 +61,13 @@ class BadgeRenderer {
     private final String messageColor;
     private final String logo;
     private final boolean hasLogo;
+    private final int scaleMultiplier;
     private int leftLength;
     private int rightLength;
 
+
     public Template(BadgeFormat badgeFormat) {
+      scaleMultiplier = badgeFormat.getScaleMultiplier();
       logo = escapeXml(badgeFormat.getLogo());
       hasLogo = logo != null && !logo.isEmpty();
       int logoOffset = hasLogo ? 15 : 0;
@@ -79,6 +84,8 @@ class BadgeRenderer {
       rightWidth = rightLength + 2 * HORIZONTAL_PADDING;
 
       width = leftWidth + rightWidth;
+      svgWidth = width * scaleMultiplier;
+      svgHeight = HEIGHT * scaleMultiplier;
       leftLength *= 10;
       rightLength *= 10;
 
@@ -92,6 +99,8 @@ class BadgeRenderer {
           .replace(toPlaceholder("rightText"), rightText)
           .replace(toPlaceholder("height"), str(HEIGHT))
           .replace(toPlaceholder("width"), str(width))
+          .replace(toPlaceholder("svgHeight"), str(svgHeight))
+          .replace(toPlaceholder("svgWidth"), str(svgWidth))
           .replace(toPlaceholder("leftWidth"), str(leftWidth))
           .replace(toPlaceholder("rightWidth"), str(rightWidth))
           .replace(toPlaceholder("shadowMargin"), str(SHADOW_MARGIN))
@@ -103,7 +112,8 @@ class BadgeRenderer {
           .replace(toPlaceholder("labelColor"), labelColor)
           .replace(toPlaceholder("messageColor"), messageColor)
           .replace(toPlaceholder("hasLogo"), hasLogo ? "visible" : "hidden")
-          .replace(toPlaceholder("logo"), logo);
+          .replace(toPlaceholder("logo"), logo)
+          .replace(toPlaceholder("scaleMultiplier"), str(scaleMultiplier));
     }
 
     private static String toPlaceholder(String var) {

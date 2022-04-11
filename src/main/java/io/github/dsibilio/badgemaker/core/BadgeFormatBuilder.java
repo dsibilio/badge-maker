@@ -1,5 +1,8 @@
 package io.github.dsibilio.badgemaker.core;
 
+import static io.github.dsibilio.badgemaker.model.BadgeFormat.SCALE_MULTI_LOWER_BOUND;
+import static io.github.dsibilio.badgemaker.model.BadgeFormat.SCALE_MULTI_UPPER_BOUND;
+
 import java.util.Objects;
 
 import io.github.dsibilio.badgemaker.model.BadgeFormat;
@@ -16,6 +19,7 @@ public class BadgeFormatBuilder {
   private NamedColor labelColor = NamedColor.GREY;
   private NamedColor messageColor = NamedColor.BRIGHTGREEN;
   private String logo;
+  private int scaleMultiplier;
 
   /**
    * It is recommended to use this builder to
@@ -68,11 +72,25 @@ public class BadgeFormatBuilder {
   }
 
   /**
+   * @param scaleMultiplier the scale multiplier to be applied to the badge, eg. 2 = 2x the original size.
+   * It must be within {@link BadgeFormat#SCALE_MULTI_LOWER_BOUND} and {@link BadgeFormat#SCALE_MULTI_UPPER_BOUND}.
+   * @return the builder
+   */
+  public BadgeFormatBuilder withScaleMultiplier(int scaleMultiplier) {
+    if (scaleMultiplier < SCALE_MULTI_LOWER_BOUND || scaleMultiplier > SCALE_MULTI_UPPER_BOUND) {
+      throw new IllegalArgumentException(String.format("'scaleMultiplier' must be within %d and %d", SCALE_MULTI_LOWER_BOUND, SCALE_MULTI_UPPER_BOUND));
+    }
+
+    this.scaleMultiplier = scaleMultiplier;
+    return this;
+  }
+
+  /**
    * 
    * @return the build {@link BadgeFormat}
    */
   public BadgeFormat build() {
-    return new BadgeFormat(label, message, labelColor, messageColor, logo);
+    return new BadgeFormat(label, message, labelColor, messageColor, logo, scaleMultiplier);
   }
 
 }

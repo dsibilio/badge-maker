@@ -1,6 +1,8 @@
 package io.github.dsibilio.badgemaker.core;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
@@ -45,12 +47,34 @@ class BadgeMakerTest {
   }
 
   @Test
+  void makeBadgeWithDefaultScaleMultiplierShouldBeRegularSized() {
+    BadgeFormat badgeFormat = new BadgeFormatBuilder("message").build();
+
+    String badge = BadgeMaker.makeBadge(badgeFormat);
+    assertSame(2, occurrencesOfSubstring("transform=\"scale(1)\"", badge), "The svg elements should be regular sized");
+  }
+
+  @Test
+  void makeBadgeWithCustomScaleMultiplierShouldBeUpscaled() {
+    BadgeFormat badgeFormat = new BadgeFormatBuilder("message")
+        .withScaleMultiplier(10000)
+        .build();
+
+    String badge = BadgeMaker.makeBadge(badgeFormat);
+    assertSame(2, occurrencesOfSubstring("transform=\"scale(10000)\"", badge), "The svg elements should be upscaled");
+  }
+
+  @Test
   void makeBadgeShouldThrowWithInvalidBadgeFormat() {
-    BadgeFormat badgeFormat = new BadgeFormat(null, null, null, null, null);
+    BadgeFormat badgeFormat = new BadgeFormat(null, null, null, null, null, 0);
     badgeFormat.setLabel("label");
     badgeFormat.setLabelColor(NamedColor.BRIGHTGREEN);
     badgeFormat.setMessageColor(NamedColor.BRIGHTGREEN);
     assertThrows(IllegalArgumentException.class, () -> BadgeMaker.makeBadge(badgeFormat));
+  }
+
+  public static int occurrencesOfSubstring(String substring, String string) {
+    return (string.length() - string.replace(substring, "").length()) / substring.length();
   }
 
 }
