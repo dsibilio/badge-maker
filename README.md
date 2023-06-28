@@ -32,7 +32,7 @@ String badge = BadgeMaker.makeBadge(badgeFormat);
 <dependency>
   <groupId>io.github.dsibilio</groupId>
   <artifactId>badge-maker</artifactId>
-  <version>1.0.3</version>
+  <version>1.0.4</version>
 </dependency>
 ```
 
