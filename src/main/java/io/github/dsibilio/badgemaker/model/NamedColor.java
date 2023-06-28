@@ -3,7 +3,7 @@ package io.github.dsibilio.badgemaker.model;
 /**
  * @author Domenico Sibilio
  */
-public enum NamedColor implements Color {
+public enum NamedColor implements HexColor {
   BRIGHTGREEN("#4c1"),
   GREEN("#97ca00"),
   YELLOW("#dfb317"),

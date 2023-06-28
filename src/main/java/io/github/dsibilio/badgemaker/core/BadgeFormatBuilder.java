@@ -6,7 +6,7 @@ import static io.github.dsibilio.badgemaker.model.BadgeFormat.SCALE_MULTI_UPPER_
 import java.util.Objects;
 
 import io.github.dsibilio.badgemaker.model.BadgeFormat;
-import io.github.dsibilio.badgemaker.model.Color;
+import io.github.dsibilio.badgemaker.model.HexColor;
 import io.github.dsibilio.badgemaker.model.NamedColor;
 
 /**
@@ -17,8 +17,8 @@ public class BadgeFormatBuilder {
 
   private final String message;
   private String label;
-  private Color labelColor = NamedColor.GREY;
-  private Color messageColor = NamedColor.BRIGHTGREEN;
+  private HexColor labelColor = NamedColor.GREY;
+  private HexColor messageColor = NamedColor.BRIGHTGREEN;
   private String logo;
   private int scaleMultiplier;
 
@@ -45,7 +45,7 @@ public class BadgeFormatBuilder {
    * @param labelColor the badge label's color
    * @return the builder
    */
-  public BadgeFormatBuilder withLabelColor(Color labelColor) {
+  public BadgeFormatBuilder withLabelColor(HexColor labelColor) {
     Objects.requireNonNull(labelColor, "'labelColor' cannot be null");
     this.labelColor = labelColor;
     return this;
@@ -55,7 +55,7 @@ public class BadgeFormatBuilder {
    * @param messageColor the badge message color
    * @return the builder
    */
-  public BadgeFormatBuilder withMessageColor(Color messageColor) {
+  public BadgeFormatBuilder withMessageColor(HexColor messageColor) {
     Objects.requireNonNull(messageColor, "'messageColor' cannot be null");
     this.messageColor = messageColor;
     return this;

@@ -1,5 +1,5 @@
 package io.github.dsibilio.badgemaker.model;
 
-public interface Color {
+public interface HexColor {
     String getHexColor();
 }

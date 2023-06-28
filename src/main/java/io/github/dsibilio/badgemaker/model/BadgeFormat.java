@@ -13,12 +13,12 @@ public class BadgeFormat {
   public static final int SCALE_MULTI_UPPER_BOUND = 10000;
   private String label;
   private String message;
-  private Color labelColor;
-  private Color messageColor;
+  private HexColor labelColor;
+  private HexColor messageColor;
   private String logo;
   private int scaleMultiplier;
 
-  public BadgeFormat(String label, String message, Color labelColor, Color messageColor, String logo, int scaleMultiplier) {
+  public BadgeFormat(String label, String message, HexColor labelColor, HexColor messageColor, String logo, int scaleMultiplier) {
     this.label = label;
     this.message = message;
     this.labelColor = labelColor;
@@ -43,16 +43,16 @@ public class BadgeFormat {
   public void setMessage(String message) {
     this.message = message;
   }
-  public Color getLabelColor() {
+  public HexColor getLabelColor() {
     return labelColor;
   }
-  public void setLabelColor(Color labelColor) {
+  public void setLabelColor(HexColor labelColor) {
     this.labelColor = labelColor;
   }
-  public Color getMessageColor() {
+  public HexColor getMessageColor() {
     return messageColor;
   }
-  public void setMessageColor(Color messageColor) {
+  public void setMessageColor(HexColor messageColor) {
     this.messageColor = messageColor;
   }
   public String getLogo() {
