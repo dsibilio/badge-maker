@@ -38,7 +38,7 @@ String badge = BadgeMaker.makeBadge(badgeFormat);
 
 ## Gradle
 ```groovy
-compile group: 'io.github.dsibilio', name: 'badge-maker', version: '1.0.3'
+compile group: 'io.github.dsibilio', name: 'badge-maker', version: '1.0.4'
 ```
 
 # References
