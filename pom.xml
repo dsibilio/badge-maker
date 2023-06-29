@@ -23,9 +23,10 @@
         </developer>
     </developers>
     <scm>
-        <connection>scm:git:git@github.com:dsibilio/badge-maker.git</connection>
-        <developerConnection>scm:git:ssh://github.com:dsibilio/badge-maker.git</developerConnection>
-        <url>https://github.com/dsibilio/badge-maker/tree/main</url>
+        <connection>scm:git:https://github.com/dsibilio/badge-maker.git</connection>
+        <developerConnection>scm:git:https://github.com/dsibilio/badge-maker.git</developerConnection>
+        <url>https://github.com/dsibilio/badge-maker</url>
+        <tag>HEAD</tag>
     </scm>
 
     <properties>
