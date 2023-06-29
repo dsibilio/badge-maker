@@ -36,7 +36,10 @@ jobs:
           github.event_name != 'pull_request' &&
           (github.ref_name == 'main' || github.ref_name == 'feature/java-17') &&
           contains(github.event.head_commit.message, '[release]')
-        run: mvn -B -ntp -DscmCommentPrefix="[maven-release][skip ci] " -Dusername="dsibilio" -Dpassword="${{ secrets.GITHUB_TOKEN }}" -DskipTests -Pci-cd -Darguments="-DskipTests -Pci-cd" release:clean release:prepare release:perform
+        run: |
+          git config --global user.email "domenicosibilio@gmail.com"
+          git config --global user.name "dsibilio"
+          mvn -B -ntp -Dusername="dsibilio" -Dpassword="${{ secrets.GITHUB_TOKEN }}" -DskipTests -Pci-cd -Darguments="-DskipTests -Pci-cd" release:clean release:prepare release:perform
         env:
           MAVEN_USERNAME: ${{ secrets.OSSRH_USERNAME }}
           MAVEN_PASSWORD: ${{ secrets.OSSRH_TOKEN }}
