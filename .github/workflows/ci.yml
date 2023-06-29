@@ -34,7 +34,7 @@ jobs:
       - name: Release
         if: >
           github.event_name != 'pull_request' &&
-          (github.ref_name == 'main' || github.ref_name == 'feature/java-17') &&
+          github.ref_name == 'main' &&
           contains(github.event.head_commit.message, '[release]')
         run: |
           git config --global user.email "domenicosibilio@gmail.com"
