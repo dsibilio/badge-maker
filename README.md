@@ -21,7 +21,6 @@ BadgeFormat badgeFormat = new BadgeFormatBuilder("coverage 98.7%") // right-side
 
 // obtain the badge as image/svg+xml string representation
 String badge = BadgeMaker.makeBadge(badgeFormat);
-
 ```
 
 # Dependency
@@ -32,13 +31,14 @@ String badge = BadgeMaker.makeBadge(badgeFormat);
 <dependency>
   <groupId>io.github.dsibilio</groupId>
   <artifactId>badge-maker</artifactId>
-  <version>1.0.4</version>
+  <version>2.0.0</version>
 </dependency>
 ```
 
 ## Gradle
+
 ```groovy
-compile group: 'io.github.dsibilio', name: 'badge-maker', version: '1.0.4'
+compile group: 'io.github.dsibilio', name: 'badge-maker', version: '2.0.0'
 ```
 
 # References

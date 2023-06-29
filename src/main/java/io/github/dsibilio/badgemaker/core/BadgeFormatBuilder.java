@@ -73,7 +73,7 @@ public class BadgeFormatBuilder {
   }
 
   /**
-   * @param scaleMultiplier the scale multiplier to be applied to the badge, eg. 2 = 2x the original size.
+   * @param scaleMultiplier the scale multiplier to be applied to the badge, e.g. 2 = 2x the original size.
    * It must be within {@link BadgeFormat#SCALE_MULTI_LOWER_BOUND} and {@link BadgeFormat#SCALE_MULTI_UPPER_BOUND}.
    * @return the builder
    */
