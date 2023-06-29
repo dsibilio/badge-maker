@@ -39,7 +39,7 @@ jobs:
         run: |
           git config --global user.email "domenicosibilio@gmail.com"
           git config --global user.name "dsibilio"
-          mvn -B -ntp -Dusername="dsibilio" -Dpassword="${{ secrets.GITHUB_TOKEN }}" -DskipTests -Pci-cd -Darguments="-DskipTests -Pci-cd" release:clean release:prepare release:perform
+          mvn -B -ntp -DskipTests -Pci-cd -Darguments="-DskipTests -Pci-cd" release:clean release:prepare release:perform
         env:
           MAVEN_USERNAME: ${{ secrets.OSSRH_USERNAME }}
           MAVEN_PASSWORD: ${{ secrets.OSSRH_TOKEN }}
