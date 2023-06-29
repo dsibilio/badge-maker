@@ -19,27 +19,28 @@ class BadgeRenderer {
 
   static class Template {
 
-    private static final String FORMAT = "<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" width=\"${svgWidth}\" height=\"${svgHeight}\">\r\n"
-        + "    <linearGradient id=\"s\" x2=\"0\" y2=\"100%\">\r\n"
-        + "        <stop offset=\"0\" stop-color=\"#bbb\" stop-opacity=\".1\"/>\r\n"
-        + "        <stop offset=\"1\" stop-opacity=\".1\"/>\r\n"
-        + "    </linearGradient>\r\n"
-        + "    <clipPath id=\"r\">\r\n"
-        + "        <rect width=\"${width}\" height=\"${height}\" rx=\"3\" fill=\"#fff\"/>\r\n"
-        + "    </clipPath>\r\n"
-        + "    <g clip-path=\"url(#r)\" transform=\"scale(${scaleMultiplier})\">\r\n"
-        + "        <rect width=\"${leftWidth}\" height=\"${height}\" fill=\"${labelColor}\"/>\r\n"
-        + "        <rect x=\"${leftWidth}\" width=\"${rightWidth}\" height=\"${height}\" fill=\"${messageColor}\"/>\r\n"
-        + "        <rect width=\"${width}\" height=\"${height}\" fill=\"url(#s)\"/>\r\n"
-        + "    </g>\r\n"
-        + "    <g fill=\"#fff\" text-anchor=\"middle\" font-family=\"Verdana,Geneva,DejaVu Sans,sans-serif\" text-rendering=\"geometricPrecision\" font-size=\"110\" transform=\"scale(${scaleMultiplier})\">\r\n"
-        + "        <image xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" visibility=\"${hasLogo}\" x=\"5\" y=\"3\" width=\"14\" height=\"14\" xlink:href=\"${logo}\"/>"
-        + "        <text x=\"${leftX}\" y=\"${shadowMargin}\" fill=\"#010101\" fill-opacity=\".3\" transform=\"scale(.1)\" textLength=\"${leftLength}\">${leftText}</text>\r\n"
-        + "        <text x=\"${leftX}\" y=\"${textMargin}\" transform=\"scale(.1)\" textLength=\"${leftLength}\">${leftText}</text>\r\n"
-        + "        <text x=\"${rightX}\" y=\"${shadowMargin}\" fill=\"#010101\" fill-opacity=\".3\" transform=\"scale(.1)\" textLength=\"${rightLength}\">${rightText}</text>\r\n"
-        + "        <text x=\"${rightX}\" y=\"${textMargin}\" transform=\"scale(.1)\" textLength=\"${rightLength}\">${rightText}</text>\r\n"
-        + "    </g>\r\n"
-        + "</svg>";
+    private static final String FORMAT = """
+        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="${svgWidth}" height="${svgHeight}">\r
+            <linearGradient id="s" x2="0" y2="100%">\r
+                <stop offset="0" stop-color="#bbb" stop-opacity=".1"/>\r
+                <stop offset="1" stop-opacity=".1"/>\r
+            </linearGradient>\r
+            <clipPath id="r">\r
+                <rect width="${width}" height="${height}" rx="3" fill="#fff"/>\r
+            </clipPath>\r
+            <g clip-path="url(#r)" transform="scale(${scaleMultiplier})">\r
+                <rect width="${leftWidth}" height="${height}" fill="${labelColor}"/>\r
+                <rect x="${leftWidth}" width="${rightWidth}" height="${height}" fill="${messageColor}"/>\r
+                <rect width="${width}" height="${height}" fill="url(#s)"/>\r
+            </g>\r
+            <g fill="#fff" text-anchor="middle" font-family="Verdana,Geneva,DejaVu Sans,sans-serif" text-rendering="geometricPrecision" font-size="110" transform="scale(${scaleMultiplier})">\r
+                <image xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" visibility="${hasLogo}" x="5" y="3" width="14" height="14" xlink:href="${logo}"/>\r
+                <text x="${leftX}" y="${shadowMargin}" fill="#010101" fill-opacity=".3" transform="scale(.1)" textLength="${leftLength}">${leftText}</text>\r
+                <text x="${leftX}" y="${textMargin}" transform="scale(.1)" textLength="${leftLength}">${leftText}</text>\r
+                <text x="${rightX}" y="${shadowMargin}" fill="#010101" fill-opacity=".3" transform="scale(.1)" textLength="${rightLength}">${rightText}</text>\r
+                <text x="${rightX}" y="${textMargin}" transform="scale(.1)" textLength="${rightLength}">${rightText}</text>\r
+            </g>\r
+        </svg>""";
 
     private static final int HEIGHT = 20;
     private static final int VERTICAL_MARGIN = 0;
@@ -69,7 +70,7 @@ class BadgeRenderer {
     public Template(BadgeFormat badgeFormat) {
       scaleMultiplier = badgeFormat.getScaleMultiplier();
       logo = escapeXml(badgeFormat.getLogo());
-      hasLogo = logo != null && !logo.isEmpty();
+      hasLogo = !logo.isEmpty();
       int logoOffset = hasLogo ? 15 : 0;
 
       leftText = escapeXml(badgeFormat.getLabel());
@@ -116,8 +117,8 @@ class BadgeRenderer {
           .replace(toPlaceholder("scaleMultiplier"), str(scaleMultiplier));
     }
 
-    private static String toPlaceholder(String var) {
-      return String.format("${%s}", var);
+    private static String toPlaceholder(String name) {
+      return String.format("${%s}", name);
     }
 
     private static String str(int i) {

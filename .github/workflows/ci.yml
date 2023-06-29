@@ -1,0 +1,36 @@
+name: badge-maker CI
+
+on:
+  push:
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Build and Release
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Maven Central Repository
+        uses: actions/setup-java@v3
+        with:
+          java-version: 17
+          distribution: temurin
+          server-id: ossrh
+          server-username: MAVEN_USERNAME
+          server-password: MAVEN_PASSWORD
+          gpg-private-key: ${{ secrets.MAVEN_GPG_PRIVATE_KEY }}
+          gpg-passphrase: MAVEN_GPG_PASSPHRASE
+      - name: Build
+        run: mvn -B clean install
+      - name: Release
+        if: >
+          github.event_name != 'pull_request' &&
+          (github.ref_name == 'main' || github.ref_name == 'feature/java-17') &&
+          contains(github.event.head_commit.message, '[release]')
+        run: mvn -B -DscmCommentPrefix="[maven-release][skip ci] " -Dusername="dsibilio" -Dpassword="${{ secrets.GITHUB_TOKEN }}" -DskipTests -Pci-cd -Darguments="-DskipTests -Pci-cd" release:clean release:prepare release:perform
+        env:
+          MAVEN_USERNAME: ${{ secrets.OSSRH_USERNAME }}
+          MAVEN_PASSWORD: ${{ secrets.OSSRH_TOKEN }}
+          MAVEN_GPG_PASSPHRASE: ${{ secrets.MAVEN_GPG_PASSPHRASE }}
